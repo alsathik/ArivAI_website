@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="ArivAI - AI-powered analytics that turns business data into answers, charts, dashboards, and actionable insights." />
+  <title>ArivAI Analytics — AI Analytics for Smarter Decisions</title>
+
+  <style>
+    :root {
+      --text: #111111;
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-soft: #eef2ff;
+      --primary-border: #c7d2fe;
+      --muted: #616161;
+      --muted-2: #737373;
+      --bg: #ffffff;
+      --bg-soft: #f8fafc;
+      --border: #e5e7eb;
+      --success: #059669;
+      --shadow: 0 18px 60px rgba(17, 24, 39, 0.10);
+      --shadow-soft: 0 10px 35px rgba(17, 24, 39, 0.07);
+      --radius: 22px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(79, 70, 229, 0.09), transparent 30%),
+        radial-gradient(circle at 90% 8%, rgba(99, 102, 241, 0.08), transparent 28%),
+        var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 96px 0;
+    }
+
+    .section-soft {
+      background: var(--bg-soft);
+      border-top: 1px solid #f0f1f4;
+      border-bottom: 1px solid #f0f1f4;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--primary-border);
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.10);
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin: 16px auto 14px;
+      font-size: clamp(34px, 4.5vw, 54px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      text-align: center;
+    }
+
+    .section-copy {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 18px;
+      text-align: center;
+    }
+
+    /* NAV */
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.72);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      position: relative;
+      box-shadow: 0 9px 22px rgba(79, 70, 229, .28);
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      background: #fff;
+      border-radius: 999px;
+    }
+
+    .brand-mark::before {
+      width: 7px;
+      height: 22px;
+      left: 10px;
+      bottom: 8px;
+    }
+
+    .brand-mark::after {
+      width: 7px;
+      height: 14px;
+      right: 10px;
+      bottom: 8px;
+      box-shadow: -10px -6px 0 -1px rgba(255, 255, 255, .92);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      color: #3f3f46;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(79, 70, 229, .23);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 13px 30px rgba(79, 70, 229, .28);
+    }
+
+    .btn-outline {
+      background: #fff;
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: #cbd5e1;
+      background: #fafafa;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 86px 0 78px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 66px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      margin-top: 18px;
+      font-size: clamp(48px, 6.3vw, 76px);
+      line-height: .98;
+      letter-spacing: -0.055em;
+      max-width: 760px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin-top: 25px;
+      color: var(--muted);
+      font-size: 19px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-note {
+      margin-top: 15px;
+      color: var(--muted-2);
+      font-size: 13px;
+    }
+
+    .trusted {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 34px;
+      color: #52525b;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .trusted .check {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .check::before {
+      content: "✓";
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ecfdf5;
+      color: var(--success);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* DASHBOARD MOCK */
+    .app-shell {
+      position: relative;
+    }
+
+    .app-shell::before {
+      content: "";
+      position: absolute;
+      inset: 8% -8% -8% 12%;
+      background: linear-gradient(135deg, rgba(79, 70, 229, .18), rgba(124, 58, 237, .06));
+      filter: blur(30px);
+      border-radius: 36px;
+      z-index: -1;
+    }
+
+    .app {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transform: perspective(1300px) rotateY(-3deg) rotateX(1.5deg);
+      transform-origin: center;
+    }
+
+    .app-top {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--border);
+      background: #fbfbfc;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d4d4d8;
+    }
+
+    .app-body {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      min-height: 490px;
+    }
+
+    .sidebar {
+      border-right: 1px solid var(--border);
+      padding: 18px 10px;
+      background: #fcfcfd;
+    }
+
+    .side-brand {
+      width: 38px;
+      height: 38px;
+      margin: 0 auto 24px;
+      border-radius: 11px;
+      background: var(--primary);
+    }
+
+    .side-item {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      margin: 17px 10px;
+    }
+
+    .side-item.active {
+      background: #c7d2fe;
+      width: 70%;
+    }
+
+    .dashboard {
+      padding: 20px;
+      background: #fff;
+    }
+
+    .dash-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 17px;
+    }
+
+    .dash-title h3 {
+      font-size: 17px;
+    }
+
+    .mini-action {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      border-radius: 9px;
+      padding: 7px 9px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .ask-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--primary-border);
+      background: #fbfbff;
+      border-radius: 13px;
+      padding: 11px 12px;
+      color: #52525b;
+      font-size: 11px;
+      margin-bottom: 15px;
+    }
+
+    .ask-icon {
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--primary);
+      border-radius: 8px;
+      font-weight: 900;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .metric {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 12px;
+    }
+
+    .metric-label {
+      color: #71717a;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .metric-value {
+      margin-top: 4px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -.03em;
+    }
+
+    .metric-up {
+      color: var(--success);
+      font-size: 9px;
+      font-weight: 800;
+      margin-top: 3px;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 10px;
+    }
+
+    .chart-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 185px;
+    }
+
+    .chart-card h4 {
+      font-size: 10px;
+      margin-bottom: 13px;
+    }
+
+    .bars {
+      height: 116px;
+      display: flex;
+      align-items: end;
+      gap: 7px;
+      padding: 0 4px;
+      border-bottom: 1px solid #e5e7eb;
+      background:
+        repeating-linear-gradient(to bottom,
+          transparent 0 28px,
+          #f4f4f5 29px);
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, #818cf8, var(--primary));
+      min-height: 16px;
+    }
+
+    .donut-wrap {
+      height: 116px;
+      display: grid;
+      place-items: center;
+    }
+
+    .donut {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) 0 48%, #818cf8 48% 72%, #c7d2fe 72% 88%, #e5e7eb 88%);
+      position: relative;
+    }
+
+    .donut::after {
+      content: "AI";
+      position: absolute;
+      inset: 20px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* LOGOS */
+    .logo-strip {
+      padding: 32px 0 10px;
+    }
+
+    .logo-label {
+      color: #71717a;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+
+    .logo-pill {
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      color: #3f3f46;
+      background: rgba(255, 255, 255, .78);
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+    /* FEATURES */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+      transition: .22s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: #d4d4d8;
+      box-shadow: 0 20px 55px rgba(17, 24, 39, .10);
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 22px;
+      margin-bottom: 22px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 9px;
+      letter-spacing: -.02em;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* HOW */
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 68px;
+      align-items: center;
+      margin-top: 52px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 15px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .step-num {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      font-size: 17px;
+      margin-bottom: 3px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .ai-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .question {
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: #f4f4f5;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .answer {
+      border-radius: 18px;
+      padding: 20px;
+      background: linear-gradient(145deg, #eef2ff, #f8faff);
+      border: 1px solid var(--primary-border);
+    }
+
+    .answer-label {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .answer h3 {
+      margin: 9px 0 8px;
+      font-size: 22px;
+    }
+
+    .answer p {
+      color: #52525b;
+      font-size: 14px;
+    }
+
+    .insights {
+      display: grid;
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .insight {
+      display: flex;
+      gap: 9px;
+      padding: 10px 12px;
+      border-radius: 11px;
+      background: #fff;
+      border: 1px solid rgba(199, 210, 254, .9);
+      font-size: 13px;
+    }
+
+    /* USE CASES */
+    .use-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 46px;
+    }
+
+    .use-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      padding: 22px;
+    }
+
+    .use-card strong {
+      display: block;
+      font-size: 17px;
+      margin: 14px 0 7px;
+    }
+
+    .use-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .use-icon {
+      font-size: 24px;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 92px 0;
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 62px 42px;
+      text-align: center;
+      background: #111111;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      right: -90px;
+      top: -160px;
+      background: rgba(79, 70, 229, .55);
+      filter: blur(10px);
+    }
+
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      left: -140px;
+      bottom: -180px;
+      background: rgba(124, 58, 237, .35);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta h2 {
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta p {
+      color: #d4d4d8;
+      max-width: 660px;
+      margin: 18px auto 28px;
+      font-size: 17px;
+    }
+
+    .cta .btn-primary {
+      background: #fff;
+      color: var(--text);
+      box-shadow: none;
+    }
+
+    .cta .btn-primary:hover {
+      background: #f4f4f5;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 44px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 34px;
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      max-width: 350px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 8px 0;
+    }
+
+    .footer-col a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      color: #71717a;
+      font-size: 13px;
+    }
+
+
+    .upcoming-badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 3px 7px;
+      border: 1px solid var(--primary-border);
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+    .source-upcoming {
+      opacity: .55;
+    }
+
+    /* INSTANT 3-TAB DASHBOARD */
+    .instant-dashboard {
+      margin-top: 58px;
+    }
+
+    .dashboard-upload {
+      max-width: 860px;
+      margin: 0 auto 34px;
+      padding: 28px;
+      border: 1px dashed var(--primary-border);
+      border-radius: 22px;
+      background: linear-gradient(145deg, #fbfbff, #ffffff);
+      text-align: center;
+    }
+
+    .upload-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 14px;
+      border-radius: 15px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 22px;
+      box-shadow: 0 10px 25px rgba(79, 70, 229, .20);
+    }
+
+    .dashboard-upload h3 {
+      font-size: 22px;
+      letter-spacing: -.025em;
+      margin-bottom: 6px;
+    }
+
+    .dashboard-upload p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .zero-setup {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: var(--success);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .dashboard-tabs {
+      max-width: 1060px;
+      margin: 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .tab-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border);
+      background: #fafafa;
+    }
+
+    .tab-button {
+      border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent;
+      padding: 18px 14px;
+      color: var(--muted);
+      font-weight: 900;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .tab-button:last-child {
+      border-right: 0;
+    }
+
+    .tab-button:hover {
+      background: #f4f4f5;
+      color: var(--primary);
+    }
+
+    .tab-button.active {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: inset 0 -3px 0 var(--primary);
+    }
+
+    .tab-panel {
+      display: none;
+      padding: 28px;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: tabFade .2s ease;
+    }
+
+    @keyframes tabFade {
+      from {
+        opacity: .3;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tab-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .tab-heading h3 {
+      font-size: 21px;
+      letter-spacing: -.025em;
+    }
+
+    .tab-heading span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tab-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tab-metric {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .tab-metric-label {
+      color: #71717a;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .tab-metric-value {
+      margin-top: 5px;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -.035em;
+    }
+
+    .tab-metric-change {
+      margin-top: 3px;
+      color: var(--success);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .tab-chart-grid {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 12px;
+    }
+
+    .tab-chart {
+      min-height: 210px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .tab-chart h4 {
+      margin-bottom: 15px;
+      font-size: 12px;
+    }
+
+    .trend-chart {
+      height: 145px;
+      display: flex;
+      align-items: end;
+      gap: 9px;
+      padding: 8px 6px 0;
+      border-bottom: 1px solid var(--border);
+      background: repeating-linear-gradient(to bottom,
+          transparent 0 34px,
+          #f4f4f5 35px);
+    }
+
+    .trend-bar {
+      flex: 1;
+      min-height: 20px;
+      border-radius: 5px 5px 0 0;
+      background: linear-gradient(180deg, #818cf8, var(--primary));
+    }
+
+    .region-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .region-row {
+      display: grid;
+      grid-template-columns: 76px 1fr 48px;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .region-track {
+      height: 8px;
+      border-radius: 999px;
+      background: #eef2f7;
+      overflow: hidden;
+    }
+
+    .region-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+    }
+
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 12px;
+    }
+
+    .donut-large {
+      width: 132px;
+      height: 132px;
+      margin: 18px auto;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary) 0 43%,
+          #818cf8 43% 68%,
+          #c7d2fe 68% 84%,
+          #e5e7eb 84%);
+      position: relative;
+    }
+
+    .donut-large::after {
+      content: "Revenue";
+      position: absolute;
+      inset: 30px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border-radius: 50%;
+      color: #52525b;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .treemap {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 6px;
+      min-height: 150px;
+    }
+
+    .tree-cell {
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .tree-cell.large {
+      grid-row: 1 / 3;
+      background: #e0e7ff;
+      font-size: 14px;
+    }
+
+    .operations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .scatter {
+      position: relative;
+      height: 160px;
+      border-left: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(#f4f4f5 1px, transparent 1px),
+        linear-gradient(90deg, #f4f4f5 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .point {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .outlier {
+      width: 12px;
+      height: 12px;
+      background: #111;
+    }
+
+    .price-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0f0f2;
+      font-size: 12px;
+    }
+
+    .price-row strong {
+      font-weight: 900;
+    }
+
+    .insight-banner {
+      margin-top: 12px;
+      padding: 13px 15px;
+      border-radius: 13px;
+      border: 1px solid var(--primary-border);
+      background: var(--primary-soft);
+      color: #3730a3;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    /* RESPONSIVE */
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .how-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 64px;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+      }
+
+      .app {
+        transform: none;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .use-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .logo-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr;
+      }
+
+      .footer-col:last-child {
+        display: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(100% - 28px, 1160px);
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+
+      .nav-actions .btn-outline {
+        display: none;
+      }
+
+      .hero {
+        padding: 54px 0 52px;
+      }
+
+      .hero h1 {
+        font-size: clamp(44px, 13vw, 62px);
+      }
+
+      .hero-copy {
+        font-size: 17px;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .app-body {
+        grid-template-columns: 66px 1fr;
+      }
+
+      .metric-grid,
+      .chart-grid,
+      .feature-grid,
+      .use-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        padding-inline: 6px;
+      }
+
+      .logo-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tab-metrics,
+      .tab-chart-grid,
+      .distribution-grid,
+      .operations-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tab-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .tab-button {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .tab-button:last-child {
+        border-bottom: 0;
+      }
+
+      .tab-panel {
+        padding: 20px;
+      }
+
+      .tab-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .dashboard-upload {
+        padding: 22px 16px;
+      }
+
+      .section-title {
+        font-size: 38px;
+      }
+
+      .cta-box {
+        padding: 50px 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    .upcoming {
+      font-size: 10px;
+      opacity: 0.65;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav-wrap">
+    <div class="container">
+      <nav>
+        <a class="brand" href="#top" aria-label="ArivAI home">
+          <span class="brand-mark"></span>
+          <span>ArivAI</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#instant-dashboard">Instant Dashboard</a>
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#use-cases">Use Cases</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn btn-outline" href="#demo">Book Demo</a>
+          <a class="btn btn-primary" href="#demo">Get Started →</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow"><span class="eyebrow-dot"></span> AI-Powered Business Analytics</span>
+
+          <h1>
+            Ask your data.<br />
+            Get <span>clear answers.</span>
+          </h1>
+
+          <p class="hero-copy">
+            ArivAI turns your business data into charts, dashboards, summaries, and actionable insights using natural
+            language — without complex BI tools or SQL.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#demo">Start Exploring Your Data →</a>
+            <a class="btn btn-outline" href="#how">See How It Works</a>
+          </div>
+
+          <p class="hero-note">Connect data. Ask a question. Get an answer in seconds.</p>
+
+          <div class="trusted">
+            <span class="check">Natural language analytics</span>
+            <span class="check">Interactive dashboards</span>
+            <span class="check">AI-generated insights</span>
+          </div>
+        </div>
+
+        <div class="app-shell" aria-label="ArivAI dashboard preview">
+          <div class="app">
+            <div class="app-top">
+              <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
+
+            <div class="app-body">
+              <aside class="sidebar">
+                <div class="side-brand"></div>
+                <div class="side-item active"></div>
+                <div class="side-item"></div>
+                <div class="side-item"></div>
+                <div class="side-item"></div>
+              </aside>
+
+              <section class="dashboard">
+                <div class="dash-title">
+                  <h3>Executive Dashboard</h3>
+                  <span class="mini-action">+ Ask ArivAI</span>
+                </div>
+
+                <div class="ask-box">
+                  <span class="ask-icon">✦</span>
+                  <span>Show me total revenue by region for this quarter</span>
+                </div>
+
+                <div class="metric-grid">
+                  <div class="metric">
+                    <div class="metric-label">Total Revenue</div>
+                    <div class="metric-value">$1.24M</div>
+                    <div class="metric-up">↑ 14.2%</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-label">Customers</div>
+                    <div class="metric-value">8,421</div>
+                    <div class="metric-up">↑ 8.7%</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-label">Gross Margin</div>
+                    <div class="metric-value">42.8%</div>
+                    <div class="metric-up">↑ 3.1%</div>
+                  </div>
+                </div>
+
+                <div class="chart-grid">
+                  <div class="chart-card">
+                    <h4>Revenue by Region</h4>
+                    <div class="bars">
+                      <div class="bar" style="height:42%"></div>
+                      <div class="bar" style="height:68%"></div>
+                      <div class="bar" style="height:52%"></div>
+                      <div class="bar" style="height:86%"></div>
+                      <div class="bar" style="height:74%"></div>
+                      <div class="bar" style="height:96%"></div>
+                      <div class="bar" style="height:80%"></div>
+                    </div>
+                  </div>
+
+                  <div class="chart-card">
+                    <h4>Performance Mix</h4>
+                    <div class="donut-wrap">
+                      <div class="donut"></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container logo-strip">
+        <p class="logo-label">
+          Analyze data from the tools and databases you already use
+        </p>
+
+        <div class="logo-row">
+          <div class="logo-pill">Excel</div>
+          <div class="logo-pill">CSV</div>
+
+          <div class="logo-pill">
+            PostgreSQL <span class="upcoming">Upcoming</span>
+          </div>
+
+          <div class="logo-pill">
+            MySQL <span class="upcoming">Upcoming</span>
+          </div>
+
+          <div class="logo-pill">
+            Redshift <span class="upcoming">Upcoming</span>
+          </div>
+
+          <div class="logo-pill">
+            API <span class="upcoming">Upcoming</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="instant-dashboard">
+      <div class="container">
+        <div style="text-align:center">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> Zero Manual Setup</span>
+        </div>
+
+        <h2 class="section-title">Upload your data. Get your dashboard instantly.</h2>
+        <p class="section-copy">
+          Upload an Excel or CSV file. ArivAI automatically analyzes your dataset
+          and creates three ready-to-use analytics views.
+        </p>
+
+        <div class="instant-dashboard">
+          <div class="dashboard-tabs">
+            <div class="tab-buttons" role="tablist" aria-label="Dashboard sections">
+              <button class="tab-button active" type="button" role="tab" aria-selected="true"
+                aria-controls="performance-panel" data-tab="performance">
+                📈 Performance
+              </button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false"
+                aria-controls="distribution-panel" data-tab="distribution">
+                ◫ Distribution
+              </button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="operations-panel"
+                data-tab="operations">
+                ⚙ Operations
+              </button>
+            </div>
+
+            <div class="tab-panel active" id="performance-panel" role="tabpanel">
+              <div class="tab-heading">
+                <h3>Performance</h3>
+                <span>Automatically generated from your dataset</span>
+              </div>
+
+              <div class="tab-metrics">
+                <div class="tab-metric">
+                  <div class="tab-metric-label">Top-Line Revenue</div>
+                  <div class="tab-metric-value">$1.24M</div>
+                  <div class="tab-metric-change">↑ 14.2%</div>
+                </div>
+                <div class="tab-metric">
+                  <div class="tab-metric-label">Orders</div>
+                  <div class="tab-metric-value">8,421</div>
+                  <div class="tab-metric-change">↑ 8.7%</div>
+                </div>
+                <div class="tab-metric">
+                  <div class="tab-metric-label">Avg. Order Value</div>
+                  <div class="tab-metric-value">$147</div>
+                  <div class="tab-metric-change">↑ 5.1%</div>
+                </div>
+                <div class="tab-metric">
+                  <div class="tab-metric-label">Regional Growth</div>
+                  <div class="tab-metric-value">18.6%</div>
+                  <div class="tab-metric-change">↑ Best region</div>
+                </div>
+              </div>
+
+              <div class="tab-chart-grid">
+                <div class="tab-chart">
+                  <h4>Monthly Revenue Trend</h4>
+                  <div class="trend-chart">
+                    <div class="trend-bar" style="height:42%"></div>
+                    <div class="trend-bar" style="height:55%"></div>
+                    <div class="trend-bar" style="height:48%"></div>
+                    <div class="trend-bar" style="height:64%"></div>
+                    <div class="trend-bar" style="height:72%"></div>
+                    <div class="trend-bar" style="height:69%"></div>
+                    <div class="trend-bar" style="height:88%"></div>
+                    <div class="trend-bar" style="height:96%"></div>
+                  </div>
+                </div>
+
+                <div class="tab-chart">
+                  <h4>Regional Performance</h4>
+                  <div class="region-list">
+                    <div class="region-row"><span>North</span>
+                      <div class="region-track">
+                        <div class="region-fill" style="width:82%"></div>
+                      </div><span>82%</span>
+                    </div>
+                    <div class="region-row"><span>South</span>
+                      <div class="region-track">
+                        <div class="region-fill" style="width:71%"></div>
+                      </div><span>71%</span>
+                    </div>
+                    <div class="region-row"><span>West</span>
+                      <div class="region-track">
+                        <div class="region-fill" style="width:64%"></div>
+                      </div><span>64%</span>
+                    </div>
+                    <div class="region-row"><span>East</span>
+                      <div class="region-track">
+                        <div class="region-fill" style="width:52%"></div>
+                      </div><span>52%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="distribution-panel" role="tabpanel">
+              <div class="tab-heading">
+                <h3>Distribution</h3>
+                <span>Revenue, customers, products & mix</span>
+              </div>
+
+              <div class="tab-metrics">
+                <div class="tab-metric">
+                  <div class="tab-metric-label">North Revenue Share</div>
+                  <div class="tab-metric-value">43%</div>
+                  <div class="tab-metric-change">Largest region</div>
+                </div>
+                <div class="tab-metric">
+                  <div class="tab-metric-label">Active Customers</div>
+                  <div class="tab-metric-value">6,842</div>
+                  <div class="tab-metric-change">↑ 9.4%</div>
+                </div>
+                <div class="tab-metric">
+                  <div class="tab-metric-label">Product Lines</div>
+                  <div class="tab-metric-value">12</div>
+                  <div class="tab-metric-change">Analyzed automatically</div>
+                </div>
+                <div class="tab-metric">
+                  <div class="tab-metric-label">Top Product Share</div>
+                  <div class="tab-metric-value">31%</div>
+                  <div class="tab-metric-change">Revenue contribution</div>
+                </div>
+              </div>
+
+              <div class="distribution-grid">
+                <div class="tab-chart">
+                  <h4>Revenue Share by Region</h4>
+                  <div class="donut-large"></div>
+                </div>
+
+                <div class="tab-chart">
+                  <h4>Product Line Breakdown · Treemap</h4>
+                  <div class="treemap">
+                    <div class="tree-cell large">Product A<br />31%</div>
+                    <div class="tree-cell">Product B<br />24%</div>
+                    <div class="tree-cell">Product C<br />17%</div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="tab-panel" id="operations-panel" role="tabpanel">
+              <div class="tab-heading">
+                <h3>Operations</h3>
+                <span>Pricing, quantity, correlations & outliers</span>
+              </div>
+
+              <div class="operations-grid">
+                <div class="tab-chart">
+                  <h4>Quantity vs. Revenue · Correlation</h4>
+                  <div class="scatter">
+                    <span class="point" style="left:12%; bottom:16%"></span>
+                    <span class="point" style="left:20%; bottom:26%"></span>
+                    <span class="point" style="left:29%; bottom:31%"></span>
+                    <span class="point" style="left:37%; bottom:44%"></span>
+                    <span class="point" style="left:45%; bottom:49%"></span>
+                    <span class="point" style="left:54%; bottom:59%"></span>
+                    <span class="point" style="left:63%; bottom:68%"></span>
+                    <span class="point" style="left:73%; bottom:74%"></span>
+                    <span class="point" style="left:82%; bottom:84%"></span>
+                    <span class="point outlier" style="left:88%; bottom:38%"></span>
+                  </div>
+
+                </div>
+
+                <div class="tab-chart">
+                  <h4>Pricing Dynamics & Unit Price Trends</h4>
+                  <div class="price-list">
+                    <div class="price-row"><span>Average unit price</span><strong>$42.80</strong></div>
+                    <div class="price-row"><span>Highest unit price</span><strong>$189.00</strong></div>
+                    <div class="price-row"><span>Price trend</span><strong>↑ 6.8%</strong></div>
+                    <div class="price-row"><span>Potential outliers</span><strong>7</strong></div>
+                    <div class="price-row"><span>Quantity trend</span><strong>↑ 11.3%</strong></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="features">
+      <div class="container">
+        <div style="text-align:center">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> Built for faster decisions</span>
+        </div>
+
+        <h2 class="section-title">From raw data to business insight — instantly.</h2>
+        <p class="section-copy">
+          ArivAI removes the gap between your business questions and your data, giving teams a simpler way to explore,
+          understand, and act.
+        </p>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="icon-box">✦</div>
+            <h3>Ask in plain English</h3>
+            <p>Ask business questions naturally. ArivAI understands the intent and turns it into data analysis
+              automatically.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">▥</div>
+            <h3>Automatic visualizations</h3>
+            <p>Generate bar, line, pie, scatter, funnel, KPI, and other visualizations based on your question and data.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">⌁</div>
+            <h3>AI-generated insights</h3>
+            <p>Go beyond charts with summaries, patterns, anomalies, trends, and business observations generated by AI.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">◫</div>
+            <h3>Dynamic dashboards</h3>
+            <p>Turn useful answers into reusable dashboards that can evolve with your questions and business priorities.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">◎</div>
+            <h3>Multiple data sources</h3>
+            <p>Connect spreadsheets, CSV without rebuilding your analytics
+              stack.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-box">⚡</div>
+            <h3>Faster decision making</h3>
+            <p>Reduce dependency on manual reports and BI backlogs so business users can move from question to decision
+              faster.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <div style="text-align:center">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> Simple by design</span>
+        </div>
+
+        <h2 class="section-title">Analytics without the BI learning curve.</h2>
+        <p class="section-copy">
+          Give business users access to answers while your technical team keeps control of the data.
+        </p>
+
+        <div class="how-grid">
+          <div class="steps">
+            <article class="step">
+              <div class="step-num">1</div>
+              <div>
+                <h3>Connect your data</h3>
+                <p>Upload a file: Excel or CSV.
+
+                  Connect an existing data source: PostgreSQL, MySQL, Redshift, or API — Coming Soon.</p>
+              </div>
+            </article>
+
+            <article class="step">
+              <div class="step-num">2</div>
+              <div>
+                <h3>Ask a business question</h3>
+                <p>Use plain English like “Show total paid amount by payer” or “Which region grew fastest this quarter?”
+                </p>
+              </div>
+            </article>
+
+            <article class="step">
+              <div class="step-num">3</div>
+              <div>
+                <h3>Get charts and insights</h3>
+                <p>ArivAI selects the right analysis, generates the visualization, and explains what the data means.</p>
+              </div>
+            </article>
+
+            <article class="step">
+              <div class="step-num">4</div>
+              <div>
+                <h3>Build your dashboard</h3>
+                <p>Save useful analysis as dynamic widgets and build dashboards for teams, clients, or management.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="ai-card">
+            <div class="question">“Which payer has the highest total paid amount?”</div>
+
+            <div class="answer">
+              <div class="answer-label">ArivAI analysis</div>
+              <h3>Blue Cross leads total payments</h3>
+              <p>
+                Blue Cross represents the highest aggregate paid amount in the current dataset, with a noticeable lead
+                over the next payer.
+              </p>
+
+              <div class="insights">
+                <div class="insight">✓ Best visualization: Bar chart</div>
+                <div class="insight">✓ Metric: SUM(paid_amount)</div>
+                <div class="insight">✓ Grouping: payer</div>
+                <div class="insight">✓ Suggested follow-up: Compare payment trend by month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="use-cases">
+      <div class="container">
+        <div style="text-align:center">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> Across your business</span>
+        </div>
+
+        <h2 class="section-title">One analytics layer. Many business teams.</h2>
+        <p class="section-copy">
+          Use ArivAI wherever teams need quick answers from operational, financial, customer, or performance data.
+        </p>
+
+        <div class="use-grid">
+          <article class="use-card">
+            <div class="use-icon">📈</div>
+            <strong>Sales</strong>
+            <p>Revenue, pipeline, territory performance, customer growth, and conversion analysis.</p>
+          </article>
+
+          <article class="use-card">
+            <div class="use-icon">💳</div>
+            <strong>Finance</strong>
+            <p>Cash flow, collections, expenses, profitability, payer analysis, and management reporting.</p>
+          </article>
+
+          <article class="use-card">
+            <div class="use-icon">⚙️</div>
+            <strong>Operations</strong>
+            <p>Production, utilization, cycle time, quality, inventory, and operational KPI analysis.</p>
+          </article>
+
+          <article class="use-card">
+            <div class="use-icon">🧠</div>
+            <strong>Leadership</strong>
+            <p>Executive dashboards, cross-functional KPIs, trends, anomalies, and decision support.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="pricing">
+      <div class="container">
+        <div class="cta-box" id="demo">
+          <div class="cta-content">
+            <h2>Turn business questions into answers your team can use.</h2>
+            <p>
+              Replace slow reporting cycles with AI-powered self-service analytics. Start with your data and see what
+              ArivAI can uncover.
+            </p>
+            <a class="btn btn-primary" href="mailto:sales@arivai.ai">Book an ArivAI Demo →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top">
+            <span class="brand-mark"></span>
+            <span>ArivAI</span>
+          </a>
+          <p class="footer-copy">
+            AI-powered analytics for teams that want faster answers, clearer insights, and simpler dashboards.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#instant-dashboard">Instant Dashboard</a>
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#use-cases">Use cases</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <a href="#use-cases">Sales Analytics</a>
+          <a href="#use-cases">Finance Analytics</a>
+          <a href="#use-cases">Operations</a>
+          <a href="#use-cases">Executive BI</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 ArivAI. All rights reserved.</span>
+        <span>AI Analytics · Natural Language BI · Dynamic Dashboards</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const buttons = document.querySelectorAll(".tab-button");
+      const panels = document.querySelectorAll(".tab-panel");
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const tab = button.dataset.tab;
+
+          buttons.forEach(function (item) {
+            const active = item === button;
+            item.classList.toggle("active", active);
+            item.setAttribute("aria-selected", active ? "true" : "false");
+          });
+
+          panels.forEach(function (panel) {
+            panel.classList.toggle("active", panel.id === tab + "-panel");
+          });
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
